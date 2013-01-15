@@ -50,9 +50,7 @@ public abstract class Ship {
     /**
      *
      */
-    public void isSinking() {
-        
-    }    
+    public abstract boolean isSinking();    
     
     /**
      *

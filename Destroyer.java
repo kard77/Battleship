@@ -18,15 +18,14 @@ public class Destroyer extends Ship {
     }
     private Location[] shipPosition = new Location[3];
 
-    
-        /**
+    /**
      *
      */
     @Override
     public Location[] getShipPosition() {
         return this.shipPosition;
-    }    
-    
+    }
+
     /**
      *
      */
@@ -40,11 +39,11 @@ public class Destroyer extends Ship {
         }
     }
 
-/**
- *
- */
-@Override
-        public boolean isHit() {
+    /**
+     *
+     */
+    @Override
+    public boolean isHit() {
         for (int i = 0; i < 3; i++) {
             if (this.shipPosition[i].isHit()) {
                 return true;
@@ -59,20 +58,43 @@ public class Destroyer extends Ship {
      *
      */
     @Override
-        public void getHitMessage() {
+    public boolean isSinking() {
+        int counter = 0;
+
+        for (int i = 0; i < 3; i++) {
+            if (this.shipPosition[i].isHit()) {
+                counter++;
+            } 
+        }
+
+        if (counter == 3) {
+            getSinkMessage();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
      *
      */
     @Override
-        public void getSinkMessage() {
+    public void getHitMessage() {
+        System.out.println("Destroyer is hit!");
     }
 
     /**
      *
      */
     @Override
-        public void threaten() {
+    public void getSinkMessage() {
+        System.out.println("Destroyer is sinking!");
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void threaten() {
     }
 }

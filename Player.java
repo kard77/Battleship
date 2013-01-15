@@ -9,7 +9,7 @@ public abstract class Player {
     /**
      *
      */
-    protected Game game;    
+    protected Game game;
     /**
      *
      */
@@ -22,7 +22,7 @@ public abstract class Player {
      *
      */
     protected Field field;
-        /**
+    /**
      *
      */
     protected Field otherField;
@@ -59,14 +59,14 @@ public abstract class Player {
      */
     protected Ship fleet[] = {a1, a2, d1, d2, d3, s1, s2};
 
-
     /**
      *
      * @param game
      */
     public void setGame(Game game) {
         this.game = game;
-    }    
+    }
+
     /**
      *
      * @param name
@@ -89,7 +89,8 @@ public abstract class Player {
      */
     public Game getGame() {
         return this.game;
-    }    
+    }
+
     /**
      *
      * @return
@@ -125,7 +126,11 @@ public abstract class Player {
      * @return
      */
     public boolean hasWon() {
-        return true;
+        if (score == 27) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

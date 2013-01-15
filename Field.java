@@ -1013,6 +1013,14 @@ public class Field {
                         for (int i = 0; i < this.player.game.getPlayer2().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().getLength(); i++) {                  
                             this.player.game.getPlayer2().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().getShipPosition()[i].hit();                       
                         }
+                        
+                        if (this.player.game.getPlayer2().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().isSinking()) {
+                            this.player.game.getPlayer2().field.removeShip(this.player.game.getPlayer2().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip());
+                            
+                            this.player.score += 5;
+                            
+                        }
+                        
 
                     case "D":
                         grid[moveLoc.getRow()][moveLoc.getCol()].setContent("x");
@@ -1021,6 +1029,12 @@ public class Field {
                         for (int i = 0; i < this.player.game.getPlayer2().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().getLength(); i++) {                  
                             this.player.game.getPlayer2().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().getShipPosition()[i].hit();                       
                         }
+                        
+                        if (this.player.game.getPlayer2().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().isSinking()) {
+                            this.player.game.getPlayer2().field.removeShip(this.player.game.getPlayer2().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip());
+                            this.player.score += 2;
+                            
+                        }                        
                     case "S":
                         grid[moveLoc.getRow()][moveLoc.getCol()].setContent("x");
                         grid[moveLoc.getRow()][moveLoc.getCol()].mark();
@@ -1028,7 +1042,11 @@ public class Field {
                         for (int i = 0; i < this.player.game.getPlayer2().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().getLength(); i++) {                  
                             this.player.game.getPlayer2().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().getShipPosition()[i].hit();                       
                         }
-
+                        if (this.player.game.getPlayer2().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().isSinking()) {
+                            this.player.game.getPlayer2().field.removeShip(this.player.game.getPlayer2().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip());
+                            this.player.score += 3;
+                            
+                        }
 
 
                 }
@@ -1072,7 +1090,135 @@ public class Field {
                 }
             }
         } else { // player 2 plays
-            
+
+            if (this.player.game.getPlayer1().field.grid[moveLoc.getRow()][moveLoc.getCol()].isEmpty()) {
+                grid[moveLoc.getRow()][moveLoc.getCol()].setContent("o");
+                grid[moveLoc.getRow()][moveLoc.getCol()].mark();
+
+                /* Let's threaten some ships */
+                for (Ship s : this.player.game.getPlayer1().fleet) {
+
+
+                    for (int i = 0; i < 4; i++) {
+
+                        if ((moveLoc.getRow() + i < this.rows)) {
+                            s = this.player.game.getPlayer1().field.grid[moveLoc.getRow() + i][moveLoc.getCol()].getShip();
+
+                            if (s != null) {
+                                s.threaten();
+                            }
+                        }
+                        if ((moveLoc.getRow() - i > 0)) {
+                            s = this.player.game.getPlayer1().field.grid[moveLoc.getRow() - i][moveLoc.getCol()].getShip();
+
+                            if (s != null) {
+                                s.threaten();
+                            }
+                        }
+                        if ((moveLoc.getCol() + i < this.cols)) {
+                            s = this.player.game.getPlayer1().field.grid[moveLoc.getRow()][moveLoc.getCol() + i].getShip();
+
+                            if (s != null) {
+                                s.threaten();
+                            }
+                        }
+                        if ((moveLoc.getCol() - i > 0)) {
+                            s = this.player.game.getPlayer1().field.grid[moveLoc.getRow()][moveLoc.getCol() - i].getShip();
+
+                            if (s != null) {
+                                s.threaten();
+                            }
+
+                        }
+                    }
+                }
+            } else { // not empty loc
+
+
+                switch (this.player.game.getPlayer1().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().getLetter()) {
+
+                    case "A":
+                        grid[moveLoc.getRow()][moveLoc.getCol()].setContent("x");
+                        grid[moveLoc.getRow()][moveLoc.getCol()].mark();
+
+                        for (int i = 0; i < this.player.game.getPlayer1().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().getLength(); i++) {                  
+                            this.player.game.getPlayer1().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().getShipPosition()[i].hit();                       
+                        }
+                        
+                        if (this.player.game.getPlayer1().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().isSinking()) {
+                            this.player.game.getPlayer1().field.removeShip(this.player.game.getPlayer1().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip());
+                            this.player.score += 5;
+                            
+                        }
+                        
+
+                    case "D":
+                        grid[moveLoc.getRow()][moveLoc.getCol()].setContent("x");
+                        grid[moveLoc.getRow()][moveLoc.getCol()].mark();
+
+                        for (int i = 0; i < this.player.game.getPlayer1().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().getLength(); i++) {                  
+                            this.player.game.getPlayer1().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().getShipPosition()[i].hit();                       
+                        }
+                        
+                        if (this.player.game.getPlayer1().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().isSinking()) {
+                            this.player.game.getPlayer1().field.removeShip(this.player.game.getPlayer1().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip());
+                            this.player.score += 2;
+                            
+                        }                        
+                    case "S":
+                        grid[moveLoc.getRow()][moveLoc.getCol()].setContent("x");
+                        grid[moveLoc.getRow()][moveLoc.getCol()].mark();
+
+                        for (int i = 0; i < this.player.game.getPlayer1().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().getLength(); i++) {                  
+                            this.player.game.getPlayer1().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().getShipPosition()[i].hit();                       
+                        }
+                        if (this.player.game.getPlayer1().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip().isSinking()) {
+                            this.player.game.getPlayer1().field.removeShip(this.player.game.getPlayer1().field.grid[moveLoc.getRow()][moveLoc.getCol()].getShip());
+                            this.player.score += 3;
+                            
+                        }
+
+
+                }
+
+                /* Let's threaten some ships */
+                for (Ship s : this.player.game.getPlayer1().fleet) {
+
+
+                    for (int i = 0; i < 4; i++) {
+
+                        if ((moveLoc.getRow() + i < this.rows)) {
+                            s = this.player.game.getPlayer1().field.grid[moveLoc.getRow() + i][moveLoc.getCol()].getShip();
+
+                            if (s != null) {
+                                s.threaten();
+                            }
+                        }
+                        if ((moveLoc.getRow() - i > 0)) {
+                            s = this.player.game.getPlayer1().field.grid[moveLoc.getRow() - i][moveLoc.getCol()].getShip();
+
+                            if (s != null) {
+                                s.threaten();
+                            }
+                        }
+                        if ((moveLoc.getCol() + i < this.cols)) {
+                            s = this.player.game.getPlayer1().field.grid[moveLoc.getRow()][moveLoc.getCol() + i].getShip();
+
+                            if (s != null) {
+                                s.threaten();
+                            }
+                        }
+                        if ((moveLoc.getCol() - i > 0)) {
+                            s = this.player.game.getPlayer1().field.grid[moveLoc.getRow()][moveLoc.getCol() - i].getShip();
+
+                            if (s != null) {
+                                s.threaten();
+                            }
+
+                        }
+                    }
+                }
+            }            
         }
     }
 

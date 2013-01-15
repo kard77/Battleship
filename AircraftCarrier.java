@@ -16,15 +16,8 @@ public class AircraftCarrier extends Ship {
     public AircraftCarrier(int length, int points, String letter, Field field) {
         super(length, points, letter, field);
     }
-
-    
-    
-    
-    
-    
+   
     private Location[] shipPosition = new Location[5];
-
-    
     
     
         /**
@@ -35,7 +28,26 @@ public class AircraftCarrier extends Ship {
         return this.shipPosition;
     }    
     
-    
+    /**
+     *
+     */
+    @Override
+    public boolean isSinking() {
+        int counter = 0;
+
+        for (int i = 0; i < 5; i++) {
+            if (this.shipPosition[i].isHit()) {
+                counter++;
+            } 
+        }
+
+        if (counter == 3) {
+            getSinkMessage();
+            return true;
+        } else {
+            return false;
+        }
+    }    
     
     
     /**
@@ -66,21 +78,13 @@ public class AircraftCarrier extends Ship {
 
     }   
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     /**
      *
      */
     @Override
     public void getHitMessage() {
+                System.out.println("AircraftCarrier is hit!");
     }
 
     /**
@@ -88,6 +92,7 @@ public class AircraftCarrier extends Ship {
      */
     @Override
     public void getSinkMessage() {
+                System.out.println("AircraftCarrier is sinking!");
     }
 
     /**

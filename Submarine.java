@@ -56,7 +56,19 @@ public class Submarine extends Ship {
     
     
     
-    
+  /**
+     *
+     */
+    @Override
+    public boolean isSinking() {
+
+        if (this.shipPosition[0].isHit()) {
+            getSinkMessage();
+            return true;
+        } else {
+            return false;
+        }      
+    }     
     
     
     /**
